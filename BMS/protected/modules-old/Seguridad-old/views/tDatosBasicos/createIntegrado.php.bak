@@ -1,0 +1,289 @@
+<script src="<?php echo Yii::app()->theme->baseUrl; ?>/js/jquery.js"></script>
+
+
+
+<?php
+/* @var $this TDatosBasicosController */
+/* @var $model TDatosBasicos */
+
+$this->breadcrumbs=array(
+	'Datos Basicos'=>array('index'),
+	'Crear',
+);
+
+?>
+
+<div class="wrapper">
+        <div class="row">
+                <div class="col-md-12">
+                    <div class="square-widget">
+                        <h3>Registrar M&eacute;dico</h3>
+                        <div class="widget-container">
+                            <div class="stepy-tab">
+                            </div>
+                                <?php $form=$this->beginWidget('CActiveForm', array(
+                                    'id'=>'t_datos_basicos1',
+                                    // Please note: When you enable ajax validation, make sure the corresponding
+                                    // controller action is handling ajax validation correctly.
+                                    // There is a call to performAjaxValidation() commented in generated controller code.
+                                    // See class documentation of CActiveForm for details on this. 
+                                    //'enableAjaxValidation'=>false,      
+                                    'enableAjaxValidation'=>true,
+                                    'enableClientValidation' => true,
+                                    // 'clientOptions'=> array('validateOnSubmit'=>true,
+                                 //                            'afterValidate'=>'js:function() 
+                                 //                            {     
+                                 //                                 return false
+                                 //                            }'
+                                 //    ),
+                                    'htmlOptions'=>array('class'=>'form-horizontal left-align form-well','enctype' => 'multipart/form-data',
+                                    ),
+                                )); ?>
+                                <?php echo chtml::hiddenField('id_perfil',$model->id_perfil);  ?>
+                                    <!-- <form id="stepy_form" class=" form-horizontal left-align form-well">-->
+                                        <fieldset title="Paso 1"> 
+                                            <legend>Datos del Usuario</legend>
+                                            <?php //$this->renderPartial('application.modules.Seguridad.views.tUsuario._formUsuario', array('model'=>$modelUsuario,'form'=>$form)); ?>   
+
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($modelUsuario,'email',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textField($modelUsuario,'email',array('class'=>'form-control','type'=>'email','size'=>40,'maxlength'=>40)); ?>
+                                                </div>  
+                                            </div>
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($modelUsuario,'palabra_clave',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textField($modelUsuario,'palabra_clave',array('class'=>'form-control','type'=>'password','size'=>40,'maxlength'=>40)); ?>
+                                                </div>   
+                                            </div>
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($modelUsuario,'confirmar_clave',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textField($modelUsuario,'confirmar_clave',array('class'=>'form-control','type'=>'password','size'=>40,'maxlength'=>40)); ?>
+                                                </div>   
+                                            </div>
+
+                                        </fieldset>
+
+                                        <fieldset title="Paso 2">
+                                            <legend>Datos Personales</legend>
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($model,'nombres',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textField($model,'nombres',array('class'=>'form-control','type'=>'text','size'=>40,'maxlength'=>40)); ?>
+                                                </div>  
+                                            </div>
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($model,'apellidos',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textField($model,'apellidos',array('class'=>'form-control','type'=>'text','size'=>40,'maxlength'=>40)); ?>
+                                                </div>  
+                                            </div>
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($model,'telefono_cel',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textField($model,'telefono_cel',array('class'=>'form-control','type'=>'text','size'=>40,'maxlength'=>20)); ?>
+                                                </div>  
+                                            </div>
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($model,'nota_interes',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textField($model,'nota_interes',array('class'=>'form-control','type'=>'text','size'=>40,'maxlength'=>20)); ?>
+                                                </div>  
+                                            </div>
+                                            <?php if (($model->id_perfil== 2 ) || ($model->id_perfil== 4 ) || ($model->id_perfil== 5 )) {  ?>
+                                            <div class="form-group">
+                                                    <?php echo $form->labelEx($model,'ind_proveedor',array('class'=>'col-md-2 col-sm-2 control-label')); ?> 
+                                                    <div class="col-md-1 col-sm-1">                                                                                              
+                                                    <?php echo $form->checkBox($model,'ind_proveedor',array('class'=>'form-control','type'=>'checkbox')); ?>
+                                                    </div>                                              
+
+                                            </div>
+                                            <?php } ?>
+                                        </fieldset>
+                                        <fieldset title="Paso 3">
+                                            <legend>Direcciones</legend>
+                                            <div class="form-group"> 
+                                              <?php echo $form->labelEx($modelDireccion,'id_pais',array('class'=>'col-md-2 col-sm-2 control-label')) ?>
+                                              <div class="col-md-6 col-sm-6">
+                                              <?php echo $form->dropDownList($modelDireccion,'id_pais',CHtml::listData(TPais::model()->findAll(),'id_pais','descripcion'),array('class'=>'form-control')); ?>    
+                                              </div>
+                                            </div>
+                                            <div class="form-group"> 
+                                              <?php echo $form->labelEx($modelDireccion,'estado',array('class'=>'col-md-2 col-sm-2 control-label')) ?>
+                                              <div class="col-md-6 col-sm-6">
+                                              <?php echo $form->textField($modelDireccion,'estado',array('class'=>'form-control')); ?>   
+                                              </div>
+                                            </div> 
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($modelDireccion,'direccion1',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textArea($modelDireccion,'direccion1',array('class'=>'form-control','type'=>'textarea','row'=>5)); ?>
+                                                </div>  
+                                            </div>
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($modelDireccion,'direccion2',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textArea($modelDireccion,'direccion2',array('class'=>'form-control','type'=>'textarea','row'=>5)); ?>
+                                                </div>  
+                                            </div>
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($modelDireccion,'codigo_zip',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textField($modelDireccion,'codigo_zip',array('class'=>'form-control','type'=>'text','size'=>40,'maxlength'=>20)); ?>
+                                                </div>  
+                                            </div>
+                                            <div  class="form-group" >
+                                                <?php echo $form->labelEx($modelDireccion,'telefono_fijo',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6">
+                                                <?php echo $form->textField($modelDireccion,'telefono_fijo',array('class'=>'form-control','type'=>'text','size'=>40,'maxlength'=>20)); ?>
+                                                </div>  
+                                            </div>
+                                            <div class="form-group">
+                                                    <?php echo $form->labelEx($modelDireccion,'indicador_envio',array('class'=>'col-md-2 col-sm-2 control-label')); ?> 
+                                                    <div class="col-md-1 col-sm-1">                                                                                              
+                                                    <?php echo $form->checkBox($modelDireccion,'indicador_envio',array('class'=>'form-control','type'=>'checkbox')); ?>
+                                                    </div> 
+                                                    <?php echo $form->labelEx($modelDireccion,'indicador_factura',array('class'=>'col-md-2 col-sm-2 control-label')); ?> 
+                                                    <div class="col-md-1 col-sm-1">                                                                                              
+                                                    <?php echo $form->checkBox($modelDireccion,'indicador_factura',array('class'=>'form-control','type'=>'checkbox')); ?>
+                                                    </div>                          
+                                            </div>
+                                        </fieldset>
+                                        <?php if ($model->id_perfil== 2 ) {  ?>
+                                        <fieldset title="Paso 4">
+                                            <legend>Datos del M&eacute;dico</legend>
+                                            <div class="form-group"> 
+                                              <?php echo $form->labelEx($modelMedico,'cod_matricula',array('class'=>'col-md-2 col-sm-2 control-label')) ?>
+                                              <div class="col-md-6 col-sm-6">
+                                              <?php echo $form->textField($modelMedico,'cod_matricula',array('class'=>'form-control')); ?>   
+                                              </div>
+                                            </div> 
+                                            <div class="form-group"> 
+                                              <?php echo $form->labelEx($modelMedico,'rif',array('class'=>'col-md-2 col-sm-2 control-label')) ?>
+                                              <div class="col-md-6 col-sm-6">
+                                              <?php echo $form->textField($modelMedico,'rif',array('class'=>'form-control')); ?>   
+                                              </div>
+                                            </div>
+                                            <div class="form-group"> 
+                                              <?php echo $form->labelEx($modelMedico,'datos_contacto',array('class'=>'col-md-2 col-sm-2 control-label')) ?>
+                                              <div class="col-md-6 col-sm-6">
+                                              <?php echo $form->textField($modelMedico,'datos_contacto',array('class'=>'form-control')); ?>   
+                                              </div>
+                                            </div>
+                                            <div class="form-group">
+                                                    <?php echo $form->labelEx($modelMedico,'ind_modulo_cita',array('class'=>'col-md-2 col-sm-2 control-label')); ?> 
+                                                    <div class="col-md-1 col-sm-1">                                                                                              
+                                                    <?php echo $form->checkBox($modelMedico,'ind_modulo_cita',array('class'=>'form-control','type'=>'checkbox','onClick'=>'js: alert("");if ($(this).is(":checked")) {
+                                                            //return confirm("Debes completar los siguientes campos para activar tu módulo de citas,Estas seguro de su activacion?");
+                                                             alert("hola");
+                                                             $("#div_dia").show();
+                                                             $("#div_tipo").show();
+                                                    }else{   
+                                                              alert("gggg");
+                                                             $("#div_tipo").hide();
+                                                             $("#div_dia").hide();
+                                                    }')); ?>
+                                                    </div>                                              
+
+                                            </div>
+                                            <div class="form-group" id="div_dia" style="display:none" >
+                                             <?php echo CHtml::label('Seleccione los dias de consulta','',array('class'=>'col-md-2 col-sm-2 control-label'));?>
+                                                <div class="col-md-6 col-sm-6"> 
+                                                <select class="selectpicker form-control" multiple>
+                                                  <option value"1"> Lunes</option>
+                                                  <option value"2"> Martes</option>
+                                                  <option value"3"> Miercoles</option>
+                                                  <option value"4"> Jueves</option>
+                                                  <option value"5"> Viernes</option>
+                                                  <option value"6"> Sábado</option>
+                                                </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group" id="div_tipo" style="display:none" >
+                                                <?php echo $form->labelEx($modelMedico,'tipo_atencion',array('class'=>'col-md-2 col-sm-2 control-label')); ?>
+                                                <div class="col-md-6 col-sm-6"> 
+                                                    <?php echo $form->dropDownList($modelMedico,'tipo_atencion',array('1'=>'Particular','2'=>'Corporativa'),array('class'=>'selectpicker form-control')); ?>                                             
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                         <?php } ?>
+
+
+                                        <button type="submit" class="finish btn btn-info btn-extend"> Finish!</button>
+                                    <?php $this->endWidget(); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     </div> 
+
+<script>
+
+    /*=====STEPY WIZARD WITH VALIDATION====*/
+    $(function() {
+        $('#t_datos_basicos1').stepy({
+            backLabel: 'Previous',
+            block: true,
+            nextLabel: 'Next',
+            titleClick: true,
+            titleTarget: '.stepy-tab',
+            errorImage: true,
+            description: true,
+            titleClick: true,
+            legend: true,
+            validate: true
+        });
+       /* $('#t_datos_basicos').stepy({
+            backLabel: 'Back',
+            nextLabel: 'Next',
+            errorImage: true,
+            block: true,
+            description: true,
+            legend: false,
+            titleClick: true,
+            titleTarget: '#top_tabby',
+            validate: true
+        });*/
+        $('#t_datos_basicos1').validate({
+            /*errorPlacement: function(error, element) {
+                $('#t_datos_basicos1 div.stepy-error').append(error);
+            },*/
+            rules: {
+                'TUsuario[confirmar_clave]' : 'required',
+                'TUsuario[palabra_clave]' : 'required',
+                'TUsuario[email]': 'required email',
+            },
+            messages: {
+                'TUsuario[confirmar_clave]': {
+                    required: 'Confirmar clave es requerido!'
+                },
+                'TUsuario[palabra_clave]': {
+                    required: 'Palabra clave es requerido!'
+                },
+                'TUsuario[email]': {
+                    required: 'Email es requerido!',
+                },
+            },
+            submitHandler: function(form){
+                var dataString = 'name='+$('#TUsuario_email').val()+'...';
+                $.ajax({
+                    type: "POST",
+                    //url:"send.php",
+                    data: dataString,
+                    success: function(data){
+                        alert("envio"+dataString);
+                        /*$("#ok").html(data);
+                        $("#ok").show();
+                        $("#formid").hide();*/
+                    }
+                });
+            }
+        
+        });
+    });
+
+    
+  
+</script>

@@ -1,0 +1,78 @@
+<?php
+/* @var $this TUsuarioController */
+/* @var $model TUsuario */
+
+$this->breadcrumbs=array(
+	'Tusuarios'=>array('index'),
+	'Manage',
+);
+
+//$this->menu=TUsuario::model()->CargarMenuLateral();
+
+Yii::app()->clientScript->registerScript('search', "
+$('.search-button').click(function(){
+	$('.search-form').toggle();
+	return false;
+});
+$('.search-form form').submit(function(){
+	$('#tusuario-grid').yiiGridView('update', {
+		data: $(this).serialize()
+	});
+	return false;
+});
+");
+?>
+
+<div class="row-fluid" style="width:90%">
+	<div class="span12">
+		<h1 class="heading">Administrar Usuarios</h1>
+	</div>	
+		<p>
+	Puede utilizar los siguientes operadores (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
+	o <b>=</b>) para realizar busquedas especificas.
+	</p>
+</div>
+
+
+
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'tusuario-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
+		//array('name' => 'idPersona.cedula_identidad','header' =>'C&eacute;dula','filter'=>CHtml::activeTextField($model,'cedula')),
+		array('name' => 'email','header' =>'Usuario'),
+		'palabra_clave',
+		'nro_intentos',
+		'fecha_usuario',		
+		array('name' => 'id_estatus','header' =>'Estatus','value'=>'TEstatus::model()->getDescEstatus($data->id_estatus)','filter'=> CHtml::listData(TEstatus::model()->findAll(), 'id_estatus', 'descripcion')),
+			
+		array('header' =>'Opciones', 'class'=>'CButtonColumn',
+			'template'=>'{view}{update}{delete}',
+			'buttons'=>array
+			(
+				'view' => array
+				(
+						'label'=>'',
+						'imageUrl'=>'',
+						'options'=>array('class'=>'icon-eye-open'),
+
+				),
+				'update' => array
+				(
+						'label'=>'',
+						'imageUrl'=>'',
+						'options'=>array('class'=>'icon-pencil'),
+				),
+				'delete' => array
+				(
+						'label'=>'',
+						'imageUrl'=>'',
+						//'url'=> 'Yii::app()->createUrl("Seguridad/TUsuario/update",array("id"=>$data->id_usuario,"delete"=>true))',
+						'options'=>array('class'=>'icon-trash'),
+
+				),
+			),
+		),
+	),
+)); ?>
